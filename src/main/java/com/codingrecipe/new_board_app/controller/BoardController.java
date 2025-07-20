@@ -1,6 +1,7 @@
 package com.codingrecipe.new_board_app.controller;
 
 import com.codingrecipe.new_board_app.dto.BoardDTO;
+import com.codingrecipe.new_board_app.dto.BoardFileDTO;
 import com.codingrecipe.new_board_app.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,7 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(BoardDTO boardDTO) {
+    public String save(BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
 //        return "index";
@@ -42,11 +44,17 @@ public class BoardController {
     // 게시글 조회 메서드
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
+
         // 게시글 조회수 처리
         boardService.updateHits(id);
+
         // 상세내용 가져오기
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+        if (boardDTO.getFileAttached() == 1) {
+            List<BoardFileDTO> boardFileDTOList = boardService.findFile(id);
+            model.addAttribute("boardFileList", boardFileDTOList);
+        }
         return "detail";
     }
 
