@@ -6,9 +6,11 @@
 <mapper namespace="Board">
     <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
         insert into board_table(boardTitle, boardWriter, boardPass, boardContents, fileAttached)
-        values(#{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents}, #{fileAttached})
+           values(#{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents}, #{fileAttached})
     </insert>
     <select id="findAll" resultType="board">
-        select * from board_table order by id desc <!-- 먼저 쓴 게 나중에 보이게 정렬 지정 !-->
+        <!-- 먼저 쓴 게 나중에 보이게 정렬 지정 !-->
+        select id, boardTitle, boardWriter, boardHits, date_format(created, "%Y-%m-%d") as createdAt
+        from board_table order by id desc
     </select>
 </mapper>
