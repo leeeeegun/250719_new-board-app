@@ -1,7 +1,16 @@
 package com.codingrecipe.new_board_app.repository;
 
+import com.codingrecipe.new_board_app.dto.BoardDTO;
+import lombok.RequiredArgsConstructor;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class BoardRepository {
+    private final SqlSessionTemplate sql;
+
+    public void save(BoardDTO boardDTO) {
+        sql.insert("Board.save", boardDTO);
+    }
 }
