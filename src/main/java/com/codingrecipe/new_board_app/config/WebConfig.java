@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     private String resourcePath = "/upload/**";
 
     // 실제 저장을 사용할 경로
-    private String savePath = "file:///C:/development/intellij_community/spring_upload_files/";
+    private String savePath = "file:////Users/leegun/Documents/spring_upload_files/";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

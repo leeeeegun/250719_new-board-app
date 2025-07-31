@@ -47,7 +47,7 @@ public class BoardService {
                 boardFileDTO.setBoardId(savedBoard.getId());
 
                 // 파일 저장용 폴더에 파일 저장 처리
-                String savePath = "/C:/development/intellij_community/spring_upload_files/" + storedFileName;
+                String savePath = "/Users/leegun/Documents/spring_upload_files/" + storedFileName;
                 boardFile.transferTo(new File(savePath));
 
                 // board_file_table 저장 처리
